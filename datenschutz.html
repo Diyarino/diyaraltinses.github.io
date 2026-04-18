@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyar | Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root[data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --sidebar-bg: rgba(255, 255, 255, 0.7);
+            --accent-color: #0071e3;
+            --card-bg: rgba(255, 255, 255, 0.5);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --sidebar-bg: rgba(20, 20, 20, 0.7);
+            --accent-color: #0a84ff;
+            --card-bg: rgba(30, 30, 30, 0.5);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        *:focus { outline: none !important; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- BACKGROUND & NAVIGATION --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .header-controls { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 15px; }
+        
+        .icon-btn {
+            background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.3);
+            color: var(--text-color); padding: 10px; border-radius: 12px; cursor: pointer;
+            backdrop-filter: blur(10px); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+        }
+        
+        .menu-trigger { position: fixed; top: 20px; left: 20px; z-index: 1001; }
+
+        .sidebar {
+            width: 280px; height: 100vh; background: var(--sidebar-bg); backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(128, 128, 128, 0.2); padding: 100px 20px 20px 20px;
+            display: flex; flex-direction: column; gap: 10px;
+            transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1), transform 0.4s;
+            z-index: 999; flex-shrink: 0; position: fixed;
+        }
+        .sidebar.collapsed { width: 85px; padding-left: 15px; padding-right: 15px; }
+        .sidebar.collapsed .nav-text { display: none; }
+        .sidebar.collapsed .nav-btn { justify-content: center; padding: 15px 0; }
+        
+        .nav-btn {
+            text-decoration: none; color: var(--text-color); padding: 15px 20px; border-radius: 12px;
+            font-weight: 500; display: flex; align-items: center; gap: 15px; white-space: nowrap; overflow: hidden;
+        }
+        .nav-btn:hover { background: var(--accent-color); color: white; }
+        .nav-btn.active { background: rgba(128, 128, 128, 0.2); border: 1px solid var(--accent-color); }
+        .nav-icon { font-size: 1.2rem; display: flex; align-items: center; justify-content: center; width: 24px; }
+
+        /* --- CONTENT AREA (LEGAL TEXT) --- */
+        main {
+            flex-grow: 1;
+            padding: 100px 40px 40px 40px;
+            max-width: 900px; /* Schmaler für besseres Lesen von Text */
+            width: 100%;
+            margin: 0 auto;
+            margin-left: 280px;
+            z-index: 1;
+            transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        body.sidebar-collapsed main { margin-left: 85px; }
+
+        .legal-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 30px; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin-top: 40px; margin-bottom: 15px; color: var(--accent-color); }
+        h3 { font-size: 1.2rem; font-weight: 600; margin-top: 25px; margin-bottom: 10px; }
+        
+        p, ul {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight { color: var(--accent-color); }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(128, 128, 128, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links a { color: var(--text-color); margin-left: 20px; transition: color 0.2s; text-decoration: none; }
+        .footer-links a:hover { color: var(--accent-color); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 100% !important; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar .nav-text { display: block !important; }
+            main { margin-left: 0 !important; padding-top: 100px; padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 2rem; }
+            .legal-box { padding: 25px; }
+            footer { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-links a { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <button class="icon-btn menu-trigger" onclick="toggleMenu()">☰</button>
+
+    <div class="header-controls">
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="index.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-house"></i></span><span class="nav-text">Home</span></a>
+        <a href="about.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-user"></i></span><span class="nav-text">About</span></a>
+        <a href="cv.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span><span class="nav-text">CV</span></a>
+        <a href="projects.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-code"></i></span><span class="nav-text">Projects</span></a>
+        <a href="publications.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-book"></i></span><span class="nav-text">Publications</span></a>
+        <a href="contact.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span><span class="nav-text">Contact</span></a>
+    </nav>
+
+    <main>
+        <div class="legal-box">
+            <h1>Privacy <span class="highlight">Policy</span></h1>
+            
+            <p>Last updated: April 2026</p>
+
+            <h2>1. An overview of data protection</h2>
+            <h3>General information</h3>
+            <p>The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit this website. The term "personal data" comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration included beneath this copy.</p>
+
+            <h3>Data recording on this website</h3>
+            <p><strong>Who is the responsible party for the recording of data on this website (i.e., the "controller")?</strong></p>
+            <p>The data on this website is processed by the operator of the website. For their contact information, please refer to the "Information about the responsible party (referred to as the 'controller' in the GDPR)" section below.</p>
+
+            <p><strong>How do we record your data?</strong></p>
+            <p>We collect your data as a result of your sharing of your data with us. This may, for instance, be information you enter into our contact form.</p>
+            <p>Other data is recorded by our IT systems automatically or after you consent to its recording during your website visit. This data comprises primarily technical information (e.g., web browser, operating system, or time the site was accessed). This information is recorded automatically when you access this website.</p>
+
+            <p><strong>What are the purposes we use your data for?</strong></p>
+            <p>A portion of the information is generated to guarantee the error-free provision of the website. Other data may be used to analyze your user patterns.</p>
+
+            <h2>2. General information and mandatory information</h2>
+            <h3>Information about the responsible party (referred to as the "controller" in the GDPR)</h3>
+            <p>The data processing controller on this website is:</p>
+            <p>
+                Diyar Altinses<br>
+                --- Address---<br>
+                59494 Soest, Germany<br>
+            </p>
+            <p>
+                Email: contact@diyar-altinses.com
+            </p>
+
+            <h3>Revocation of your consent to the processing of data</h3>
+            <p>A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.</p>
+
+            <h2>3. Data collection on this website</h2>
+            <h3>Server log files & Hosting (GitHub Pages)</h3>
+            <p>This website is hosted externally by GitHub Pages. Personal data collected on this website are stored on the servers of the host. This may include, but is not limited to, IP addresses, contact requests, metadata and communications, contract information, contact information, names, web page access, and other data generated through a website.</p>
+            <p>The external hosting serves the purpose of fulfilling the contract with our potential and existing customers (Art. 6(1)(b) GDPR) and in the interest of secure, fast, and efficient provision of our online services by a professional provider (Art. 6(1)(f) GDPR).</p>
+
+            <h3>Contact form (Formspree)</h3>
+            <p>If you submit inquiries to us via our contact form, the information provided in the contact form as well as any contact information provided therein will be stored by us in order to handle your inquiry and in the event that we have further questions. We will not share this information without your consent.</p>
+            <p>For the processing of the form, we use the service "Formspree". The data you enter into the contact form will be transmitted to Formspree servers in the USA. Formspree is obliged to maintain European data protection standards.</p>
+
+            <h3>Local Storage (Theme Preference)</h3>
+            <p>This website uses your browser's "Local Storage" strictly to save your visual preference (Dark Mode or Light Mode). No tracking or analytical cookies are set or evaluated by the website operator. This data remains on your device and is not transmitted to any server.</p>
+
+            <h2>4. Plug-ins and Tools</h2>
+            <h3>Font Awesome (CDN)</h3>
+            <p>This page uses so-called web fonts provided by Fonticons, Inc. for the uniform representation of fonts and icons. When you call up a page, your browser loads the required web fonts into your browser cache to display texts and fonts correctly. For this purpose, the browser you use must connect to the servers of Font Awesome. As a result, Font Awesome learns that your IP address was used to access our website. The use of Font Awesome is based on Art. 6(1)(f) GDPR. The website operator has a legitimate interest in the uniform presentation of the typeface on their website.</p>
+
+        </div>
+
+        <footer>
+            <div class="copyright">
+                &copy; 2026 Diyar Altinses. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Privacy Policy</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        function toggleTheme() {
+            const root = document.documentElement;
+            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').innerText = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth <= 768) { sidebar.classList.remove('open'); }
+        else { sidebar.classList.remove('collapsed'); }
+
+        function toggleMenu() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('open');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed');
+            }
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1; this.speedX = (Math.random() - 0.5) * 1.5; this.speedY = (Math.random() - 0.5) * 1.5;
+                this.type = Math.random() > 0.5 ? 'circle' : 'rect';
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.globalAlpha = 0.05; ctx.beginPath();
+                if (this.type === 'circle') { ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); }
+                else { ctx.rect(this.x, this.y, this.size * 2, this.size * 2); }
+                ctx.fill();
+            }
+        }
+
+        function createParticles() { particles = []; for (let i = 0; i < 60; i++) { particles.push(new Particle()); } }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { initCanvas(); createParticles(); });
+        initCanvas(); createParticles(); animate();
+    </script>
+</body>
+</html>

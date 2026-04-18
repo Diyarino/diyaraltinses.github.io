@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyar | Impressum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root[data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --sidebar-bg: rgba(255, 255, 255, 0.7);
+            --accent-color: #0071e3;
+            --card-bg: rgba(255, 255, 255, 0.5);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --sidebar-bg: rgba(20, 20, 20, 0.7);
+            --accent-color: #0a84ff;
+            --card-bg: rgba(30, 30, 30, 0.5);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        *:focus { outline: none !important; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- BACKGROUND & NAVIGATION --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .header-controls { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 15px; }
+        
+        .icon-btn {
+            background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.3);
+            color: var(--text-color); padding: 10px; border-radius: 12px; cursor: pointer;
+            backdrop-filter: blur(10px); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+        }
+        
+        .menu-trigger { position: fixed; top: 20px; left: 20px; z-index: 1001; }
+
+        .sidebar {
+            width: 280px; height: 100vh; background: var(--sidebar-bg); backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(128, 128, 128, 0.2); padding: 100px 20px 20px 20px;
+            display: flex; flex-direction: column; gap: 10px;
+            transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1), transform 0.4s;
+            z-index: 999; flex-shrink: 0; position: fixed;
+        }
+        .sidebar.collapsed { width: 85px; padding-left: 15px; padding-right: 15px; }
+        .sidebar.collapsed .nav-text { display: none; }
+        .sidebar.collapsed .nav-btn { justify-content: center; padding: 15px 0; }
+        
+        .nav-btn {
+            text-decoration: none; color: var(--text-color); padding: 15px 20px; border-radius: 12px;
+            font-weight: 500; display: flex; align-items: center; gap: 15px; white-space: nowrap; overflow: hidden;
+        }
+        .nav-btn:hover { background: var(--accent-color); color: white; }
+        .nav-btn.active { background: rgba(128, 128, 128, 0.2); border: 1px solid var(--accent-color); }
+        .nav-icon { font-size: 1.2rem; display: flex; align-items: center; justify-content: center; width: 24px; }
+
+        /* --- CONTENT AREA (LEGAL TEXT) --- */
+        main {
+            flex-grow: 1;
+            padding: 100px 40px 40px 40px;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            margin-left: 280px;
+            z-index: 1;
+            transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        body.sidebar-collapsed main { margin-left: 85px; }
+
+        .legal-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 30px; }
+        h2 { font-size: 1.3rem; font-weight: 600; margin-top: 35px; margin-bottom: 15px; color: var(--accent-color); }
+        
+        p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            margin-bottom: 15px;
+        }
+
+        .highlight { color: var(--accent-color); }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(128, 128, 128, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links a { color: var(--text-color); margin-left: 20px; transition: color 0.2s; text-decoration: none; }
+        .footer-links a:hover { color: var(--accent-color); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 100% !important; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar .nav-text { display: block !important; }
+            main { margin-left: 0 !important; padding-top: 100px; padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 2rem; }
+            .legal-box { padding: 25px; }
+            footer { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-links a { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <button class="icon-btn menu-trigger" onclick="toggleMenu()">☰</button>
+
+    <div class="header-controls">
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="index.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-house"></i></span><span class="nav-text">Home</span></a>
+        <a href="about.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-user"></i></span><span class="nav-text">About</span></a>
+        <a href="cv.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span><span class="nav-text">CV</span></a>
+        <a href="projects.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-code"></i></span><span class="nav-text">Projects</span></a>
+        <a href="publications.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-book"></i></span><span class="nav-text">Publications</span></a>
+        <a href="contact.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span><span class="nav-text">Contact</span></a>
+    </nav>
+
+    <main>
+        <div class="legal-box">
+            <h1>Legal Notice / <span class="highlight">Impressum</span></h1>
+            
+            <h2>Information in accordance with § 5 DDG (Digitale-Dienste-Gesetz)</h2>
+            <p>
+                Diar Altinses<br>
+                Address<br>
+                59494 Soest<br>
+                Germany
+            </p>
+
+            <h2>Contact Information</h2>
+            <p>
+                Phone: XXXX<br>
+                E-Mail: XXXX
+            </p>
+
+            <h2>Disclaimer</h2>
+            <p><strong>Accountability for content</strong><br>
+            The contents of our pages have been created with the utmost care. However, we cannot guarantee the contents' accuracy, completeness or topicality. According to statutory provisions, we are furthermore responsible for our own content on these web pages. In this matter, please note that we are not obliged to monitor the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity.</p>
+            
+            <p><strong>Accountability for links</strong><br>
+            Responsibility for the content of external links (to web pages of third parties) lies solely with the operators of the linked pages. No violations were evident to us at the time of linking. Should any legal infringement become known to us, we will remove the respective link immediately.</p>
+            
+            <p><strong>Copyright</strong><br>
+            Our web pages and their contents are subject to German copyright law. Unless expressly permitted by law, every form of utilizing, reproducing or processing works subject to copyright protection on our web pages requires the prior consent of the respective owner of the rights. Individual reproductions of a work are only allowed for private use. The materials from these pages are copyrighted and any unauthorized use may violate copyright laws.</p>
+        </div>
+
+        <footer>
+            <div class="copyright">
+                &copy; 2026 Diyar Altinses. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="impressum.html" style="color: var(--accent-color);">Impressum</a>
+                <a href="datenschutz.html">Privacy Policy</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        function toggleTheme() {
+            const root = document.documentElement;
+            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').innerText = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth <= 768) { sidebar.classList.remove('open'); }
+        else { sidebar.classList.remove('collapsed'); }
+
+        function toggleMenu() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('open');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed');
+            }
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1; this.speedX = (Math.random() - 0.5) * 1.5; this.speedY = (Math.random() - 0.5) * 1.5;
+                this.type = Math.random() > 0.5 ? 'circle' : 'rect';
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.globalAlpha = 0.05; ctx.beginPath();
+                if (this.type === 'circle') { ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); }
+                else { ctx.rect(this.x, this.y, this.size * 2, this.size * 2); }
+                ctx.fill();
+            }
+        }
+
+        function createParticles() { particles = []; for (let i = 0; i < 60; i++) { particles.push(new Particle()); } }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { initCanvas(); createParticles(); });
+        initCanvas(); createParticles(); animate();
+    </script>
+</body>
+</html>

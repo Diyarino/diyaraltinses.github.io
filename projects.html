@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyar | Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root[data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --sidebar-bg: rgba(255, 255, 255, 0.7);
+            --accent-color: #0071e3;
+            --card-bg: rgba(255, 255, 255, 0.5);
+            --tag-bg: rgba(0, 113, 227, 0.1);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --sidebar-bg: rgba(20, 20, 20, 0.7);
+            --accent-color: #0a84ff;
+            --card-bg: rgba(30, 30, 30, 0.5);
+            --tag-bg: rgba(10, 132, 255, 0.15);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        *:focus { outline: none !important; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND & NAVIGATION --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .header-controls { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 15px; }
+        
+        .icon-btn {
+            background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.3);
+            color: var(--text-color); padding: 10px; border-radius: 12px; cursor: pointer;
+            backdrop-filter: blur(10px); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+        }
+        
+        .menu-trigger { position: fixed; top: 20px; left: 20px; z-index: 1001; }
+
+        .sidebar {
+            width: 280px; height: 100vh; background: var(--sidebar-bg); backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(128, 128, 128, 0.2); padding: 100px 20px 20px 20px;
+            display: flex; flex-direction: column; gap: 10px;
+            transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1), transform 0.4s;
+            z-index: 999; flex-shrink: 0; position: fixed;
+        }
+        .sidebar.collapsed { width: 85px; padding-left: 15px; padding-right: 15px; }
+        .sidebar.collapsed .nav-text { display: none; }
+        .sidebar.collapsed .nav-btn { justify-content: center; padding: 15px 0; }
+        
+        .nav-btn {
+            text-decoration: none; color: var(--text-color); padding: 15px 20px; border-radius: 12px;
+            font-weight: 500; display: flex; align-items: center; gap: 15px; white-space: nowrap; overflow: hidden;
+        }
+        .nav-btn:hover { background: var(--accent-color); color: white; }
+        .nav-btn.active { background: rgba(128, 128, 128, 0.2); border: 1px solid var(--accent-color); }
+        .nav-icon { font-size: 1.2rem; display: flex; align-items: center; justify-content: center; width: 24px; }
+
+        /* --- CONTENT AREA --- */
+        main {
+            flex-grow: 1;
+            padding: 100px 40px 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-left: 280px;
+            z-index: 1;
+            transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        body.sidebar-collapsed main { margin-left: 85px; }
+
+        .section-header { margin-bottom: 60px; }
+        h1 { font-size: 3rem; font-weight: 600; margin-bottom: 10px; }
+        .highlight { color: var(--accent-color); }
+        
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(128, 128, 128, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- PROJECT LAYOUT --- */
+        .project-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .project-card.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .project-text {
+            flex: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-visual {
+            flex: 1;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.5); /* Placeholder background */
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-title { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; }
+        .project-subtitle { font-size: 1rem; color: var(--accent-color); font-weight: 500; margin-bottom: 20px; }
+        
+        .project-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(10, 132, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .project-card, .project-card.reverse {
+                flex-direction: column;
+            }
+            .project-visual { width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 100% !important; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar .nav-text { display: block !important; }
+            main { margin-left: 0 !important; padding-top: 100px; padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 2.2rem; }
+            .project-text { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <button class="icon-btn menu-trigger" onclick="toggleMenu()">☰</button>
+
+    <div class="header-controls">
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="index.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-house"></i></span><span class="nav-text">Home</span></a>
+        <a href="about.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-user"></i></span><span class="nav-text">About</span></a>
+        <a href="cv.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span><span class="nav-text">CV</span></a>
+        <a href="projects.html" class="nav-btn active"><span class="nav-icon"><i class="fa-solid fa-code"></i></span><span class="nav-text">Projects</span></a>
+        <a href="publications.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-book"></i></span><span class="nav-text">Publications</span></a>
+        <a href="contact.html" class="nav-btn"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span><span class="nav-text">Contact</span></a>
+    </nav>
+
+    <main>
+        <section class="section-header">
+            <h1>Featured <span class="highlight">Projects</span></h1>
+            <p>An overview of my research and engineering projects focusing on AI, autonomous drones, and complex system optimization.</p>
+        </section>
+
+        <div class="project-card">
+            <div class="project-text">
+                <h2 class="project-title">AI4Drone</h2>
+                <div class="project-subtitle">Artificial Intelligence for Drone Delivery</div>
+                <p class="project-desc">
+                    Focuses on increasing logistics efficiency in North Rhine-Westphalia (NRW) using AI and deep learning within a highly automated drone network. It aims to overcome infrastructure bottlenecks using mixed-integer optimization combined with AI for optimal network, tour, and route planning while considering traffic, weather, and delivery priorities.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Data Science</span>
+                    <span class="tag">Collision Avoidance</span>
+                    <span class="tag">Trajectory Estimation</span>
+                    <span class="tag">Scheduling</span>
+                    <span class="tag">Decision Making</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="ai4drone.gif" alt="AI4Drone Visualization">
+            </div>
+        </div>
+
+        <div class="project-card reverse">
+            <div class="project-text">
+                <h2 class="project-title">Predictive Urban Energy Management</h2>
+                <div class="project-subtitle">AI-Driven Heat Demand Forecasting & Automated Control</div>
+                <p class="project-desc">
+                    This project optimizes urban energy supply by forecasting the heating demand of city households. Based on these predictions, the system plans optimal power plant operations and automatically schedules energy generation. During live operation, it continuously performs real-time plausibility checks to ensure forecasts align with actual consumption. If significant deviations or anomalies are detected, the system automatically triggers alerts for human operators to intervene.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Demand Forecasting</span>
+                    <span class="tag">Automated Control</span>
+                    <span class="tag">Anomaly Detection</span>
+                    <span class="tag">Energy Management</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="energy.gif" alt="Predictive Energy Management Visualization">
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-text">
+                <h2 class="project-title">Drone4Parcel5G</h2>
+                <div class="project-subtitle">5G Autonomous Drone Operations</div>
+                <p class="project-desc">
+                    Leveraging the new 5G mobile network generation to establish safe and autonomous drone operations in the logistics sector. By combining drone manufacturing expertise, path planning software, and logistics allocation algorithms, this project demonstrates how 5G enables secure drone swarm operations for pharmaceutical and industrial deliveries.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">5G Communication</span>
+                    <span class="tag">Priority Management</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Swarm Control</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="traffic.gif" alt="Drone4Parcel5G Visualization">
+            </div>
+        </div>
+
+        <div class="project-card reverse">
+            <div class="project-text">
+                <h2 class="project-title">PSAR</h2>
+                <div class="project-subtitle">AI-Supported AR Assistance System</div>
+                <p class="project-desc">
+                    Development of an adaptive, AI-driven Augmented Reality (AR) assistance system using HoloLens 2 for complex industrial tasks. Through imitation learning and AI processing of heterogeneous data, the effort required to create AR content is reduced by 90%. Users are guided intuitively via 5G with <10ms latency, enabling real-time error detection and pre-action simulations.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Augmented Reality (AR)</span>
+                    <span class="tag">Machine Vision</span>
+                    <span class="tag">Object Detection</span>
+                    <span class="tag">Data Compression</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="psar.gif" alt="PSAR AR Visualization">
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-text">
+                <h2 class="project-title">SIDDA</h2>
+                <div class="project-subtitle">Sustainable Intermodal Drone Delivery Airline</div>
+                <p class="project-desc">
+                    Researching fully automated, intermodal drone networks for climate-neutral B2B distribution in suburban areas. It integrates static and mobile micro-hubs configured as a "drone airline" into existing logistics networks. A U-Space Service Provider prototype simulates drone behavior to optimize the ecological, economic, and social impact.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Logistics Management</span>
+                    <span class="tag">Drone Control</span>
+                    <span class="tag">Sim2Real</span>
+                    <span class="tag">Simulations</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="sidda.gif" alt="SIDDA Visualization">
+            </div>
+        </div>
+
+        <div class="project-card reverse">
+            <div class="project-text">
+                <h2 class="project-title">SeGuForm</h2>
+                <div class="project-subtitle">100% Quality Assurance via Self-Optimization</div>
+                <p class="project-desc">
+                    An interdisciplinary approach combining modern automation and intelligent data analysis to secure 100% good-part production in automotive sheet metal manufacturing. Features include complete digital mapping, real-time simulation, automated 100% part measurement, and anomalous part correction guided by a digital twin using NC-supported incremental forming.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Data Analysis</span>
+                    <span class="tag">FEM</span>
+                    <span class="tag">Anomaly Detection</span>
+                    <span class="tag">Digital Twin</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="seguform.gif" alt="SeGuForm Visualization">
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-text">
+                <h2 class="project-title">LiCO-AI</h2>
+                <div class="project-subtitle">Lifecycle Optimization in Die Casting via Deep Learning</div>
+                <p class="project-desc">
+                    Optimizing the control of process parameters (recipes) in automotive aluminum die casting. The project involves defining KPIs, developing machine learning prediction modules, and extracting features from simulations without violating IP rights. Deep Neural Networks and statistical methods are utilized to model the degradation and fatigue state of the molds.
+                </p>
+                <div class="tags-container">
+                    <span class="tag">Deep Learning</span>
+                    <span class="tag">Process Optimization</span>
+                    <span class="tag">Degradation Modeling</span>
+                    <span class="tag">KPI Prediction</span>
+                </div>
+            </div>
+            <div class="project-visual">
+                <img src="licoai.gif" alt="LiCO-AI Visualization">
+            </div>
+        </div>
+        
+        
+        <footer>
+            <div class="copyright">
+                &copy; 2026 Diyar Altinses. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Privacy Policy</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        function toggleTheme() {
+            const root = document.documentElement;
+            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').innerText = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth <= 768) { sidebar.classList.remove('open'); }
+        else { sidebar.classList.remove('collapsed'); }
+
+        function toggleMenu() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('open');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed');
+            }
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1; this.speedX = (Math.random() - 0.5) * 1.5; this.speedY = (Math.random() - 0.5) * 1.5;
+                this.type = Math.random() > 0.5 ? 'circle' : 'rect';
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.globalAlpha = 0.05; ctx.beginPath();
+                if (this.type === 'circle') { ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); }
+                else { ctx.rect(this.x, this.y, this.size * 2, this.size * 2); }
+                ctx.fill();
+            }
+        }
+
+        function createParticles() { particles = []; for (let i = 0; i < 200; i++) { particles.push(new Particle()); } }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { initCanvas(); createParticles(); });
+        initCanvas(); createParticles(); animate();
+    </script>
+</body>
+</html>

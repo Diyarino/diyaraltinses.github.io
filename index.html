@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root[data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --sidebar-bg: rgba(255, 255, 255, 0.7);
+            --accent-color: #0071e3;
+            --card-bg: rgba(255, 255, 255, 0.5);
+            --icon-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --sidebar-bg: rgba(20, 20, 20, 0.7);
+            --accent-color: #0a84ff;
+            --card-bg: rgba(30, 30, 30, 0.5);
+            --icon-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        *:focus {
+            outline: none !important;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .header-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .menu-trigger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+        }
+        
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(128, 128, 128, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(128, 128, 128, 0.2);
+            padding: 100px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1), transform 0.4s;
+            z-index: 999;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed {
+            width: 85px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-btn {
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .nav-btn.active {
+            background: rgba(128, 128, 128, 0.2);
+            border: 1px solid var(--accent-color);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        /* --- SOCIAL MEDIA BAR --- */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            text-decoration: none;
+            color: var(--text-color);
+            background: var(--icon-bg);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+        }
+
+        /* Smartphone Anpassung */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                width: 100% !important;
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .sidebar .nav-text { display: block !important; }
+            .sidebar .nav-btn { justify-content: flex-start !important; padding: 15px 20px !important; }
+            main { padding-top: 80px; }
+            .profile-img { width: 130px; height: 130px; }
+            .social-icon { width: 45px; height: 45px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <button class="icon-btn menu-trigger" onclick="toggleMenu()">☰</button>
+
+    <div class="header-controls">
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="index.html" class="nav-btn active">
+            <span class="nav-icon"><i class="fa-solid fa-house"></i></span><span class="nav-text">Home</span>
+        </a>
+        <a href="about.html" class="nav-btn">
+            <span class="nav-icon"><i class="fa-solid fa-user"></i></span><span class="nav-text">About</span>
+        </a>
+        <a href="cv.html" class="nav-btn">
+            <span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span><span class="nav-text">CV</span>
+        </a>
+        <a href="projects.html" class="nav-btn">
+            <span class="nav-icon"><i class="fa-solid fa-code"></i></span><span class="nav-text">Projects</span>
+        </a>
+        <a href="publications.html" class="nav-btn">
+            <span class="nav-icon"><i class="fa-solid fa-book"></i></span><span class="nav-text">Publications</span>
+        </a>
+        <a href="contact.html" class="nav-btn">
+            <span class="nav-icon"><i class="fa-solid fa-envelope"></i></span><span class="nav-text">Contact</span>
+        </a>
+    </nav>
+
+    <main>
+        <img src="profile.png" alt="Profilbild" class="profile-img">
+        
+        <h1>Hello World, I am <span class="highlight">Diyar</span>.</h1>
+        <p>
+            I am a passionate developer and researcher focused on bridging the gap between data science and impactful software and engineering solutions. 
+            Explore my journey through my latest projects, academic publications, and technical expertise.
+        </p>
+
+        <div class="social-links">
+            <a href="https://github.com/Diyarino" target="_blank" class="social-icon" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/diyar-altinses-aa91a5376/?originalSubdomain=de" target="_blank" class="social-icon" title="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://orcid.org/0009-0005-7928-5874" target="_blank" class="social-icon" title="ORCID">
+        <svg viewBox="0 0 24 24" style="width: 24px; fill: currentColor;">
+                    <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.361 17.656c-.031 0-.056-.025-.056-.056V6.632c0-.031.025-.056.056-.056h1.221c.031 0 .056.025.056.056v10.968c0 .031-.025.056-.056.056H7.361zm.639-11.859c-.441 0-.798-.357-.798-.798s.357-.798.798-.798.798.357.798.798-.357.798-.798.798zm6.514 11.859h-2.181c-.031 0-.056-.025-.056-.056V6.632c0-.031.025-.056.056-.056h2.181c2.162 0 3.731 1.543 3.731 3.756 0 2.213-1.569 3.756-3.731 3.756zm0-6.425h-1.045v5.338h1.045c1.456 0 2.506-.981 2.506-2.669s-1.05-2.669-2.506-2.669z"/>
+                </svg>
+            </a>
+            <a href="https://scholar.google.com/citations?hl=de&user=paBTWJ4AAAAJ" target="_blank" class="social-icon" title="Google Scholar">
+                <svg viewBox="0 0 24 24" style="width: 24px; fill: currentColor;">
+                    <path d="M5.242 13.769L0.5 9.5 12 0l11.5 9.5-4.742 4.269C17.547 12.688 14.912 12 12 12s-5.547 0.688-6.758 1.769zM12 14c3.314 0 6 2.686 6 6s-2.686 6-6 6-6-2.686-6-6 2.686-6 6-6z"/>
+                </svg>
+            </a>
+            <a href="https://www.researchgate.net/profile/Diyar_Altinses" target="_blank" class="social-icon" title="ResearchGate">
+                <i class="fa-brands fa-researchgate"></i>
+            </a>
+            <a href="https://sciprofiles.com/profile/altinses" target="_blank" class="social-icon" title="SciProfiles">
+                <i class="fa-solid fa-graduation-cap"></i> </a>
+        </div>
+        
+        
+        <footer>
+            <div class="copyright">
+                &copy; 2026 Diyar Altinses. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Privacy Policy</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').innerText = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        // Sidebar Logic
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth <= 768) { sidebar.classList.remove('open'); }
+        else { sidebar.classList.remove('collapsed'); }
+
+        function toggleMenu() {
+            if (window.innerWidth <= 768) { sidebar.classList.toggle('open'); }
+            else { sidebar.classList.toggle('collapsed'); }
+        }
+
+        // Hintergrund Animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.type = Math.random() > 0.5 ? 'circle' : 'rect';
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.globalAlpha = 0.1; ctx.beginPath();
+                if (this.type === 'circle') { ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); }
+                else { ctx.rect(this.x, this.y, this.size * 2, this.size * 2); }
+                ctx.fill();
+            }
+        }
+
+        function createParticles() { particles = []; for (let i = 0; i < 200; i++) { particles.push(new Particle()); } }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        window.addEventListener('resize', () => { initCanvas(); createParticles(); });
+        initCanvas(); createParticles(); animate();
+    </script>
+</body>
+</html>
