@@ -236,6 +236,112 @@
         </section>
 
         <h2><i class="fa-solid fa-book-journal-whills highlight"></i> Scientific Articles</h2>
+
+
+
+        <div class="pub-card">
+            <div class="pub-title">Toward Just-In-Time Production Scheduling Using Masked Actor-Critic Reinforcement Learning and Colored Timed Petri Nets</div>
+            <div class="pub-authors">Sofiene Lassoued, Diyar Altinses, Stefan Lier, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> IEEE 2026 - 12th International Conference on Control, Decision and Information Technologies</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                This paper presents a reinforcement learning approach to optimising Just-In-Time production in job shop environments. We model the production system using Colored Timed Petri Nets, capturing complex constraints including resource sharing, operation sequencing, and timing. An Actor-Critic RL algorithm is deployed to learn optimal scheduling policies. We first focus on minimizing the makespan and then target buffer-size reduction, which is essential for JIT adherence. A multi-objective optimisation is introduced via reward scalarization to generate a Pareto front of trade-offs between makespan and buffer usage. Experimental results demonstrate the effectiveness of our approach in achieving JIT goals through interpretable, adaptive scheduling strategies.
+            </div>
+            
+            <a href="https://doi.org/10.1109/CoDIT70676.2026.11631086" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1109/CoDIT70676.2026.11631086
+            </a>
+        </div>
+
+
+
+        <div class="pub-card">
+            <div class="pub-title">Unsupervised Fuzzy Multi-Objective Optimization for Complex Decision-Making Problems</div>
+            <div class="pub-authors">Diyar Altinses, Sofiene Lassoued, David O. Salazar Torres, Stefan Lier, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> IEEE 2026 - 12th International Conference on Control, Decision and Information Technologies</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                Many real-world optimization problems involve multiple competing objectives, where the exact weighting is often difficult to define. Traditional fuzzy logic approaches for decision-making, while useful for handling uncertainty, require evaluating all combinations to find the optimal solution. For instance, in logistical scenarios where the optimal location must be determined, fuzzy logic would require evaluating every point on the map, which is time-consuming and computationally expensive. This paper presents an unsupervised neuro-fuzzy optimization model that addresses these problems. Our approach combines a multimodal neural network with differentiable fuzzy objectives for efficient optimization. The model provides robust solutions across various applications, including location selection, network infrastructure, and energy distribution. By leveraging differentiable fuzzy objectives, it can handle complex multi-objective tasks while ensuring high performance and scalability. This method significantly improves traditional optimization techniques and is highly applicable in dynamic, real-time environments.
+            </div>
+            
+            <a href="https://doi.org/10.1109/CoDIT70676.2026.11631006" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1109/CoDIT70676.2026.11631006
+            </a>
+        </div>
+
+
+
+        <div class="pub-card">
+            <div class="pub-title">Residual Physics-Informed Neural Networks for Robust Indoor Occupancy Estimation using Sonar</div>
+            <div class="pub-authors">Diyar Altinses, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> IEEE 2026 - 12th International Conference on Control, Decision and Information Technologies</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                Robust indoor occupancy estimation is critical for smart building safety, especially in emergencies where optical sensors fail due to privacy concerns or smoke. While active acoustic sensing offers a non-intrusive alternative, current black-box models often fail to generalize, while analytical models oversimplify reverberation dynamics. To address this, we introduce a residual physics-informed neural network for acoustic crowd counting using edge devices. Our hybrid architecture fuses Sabine’s reverberation theory with a parallel residual branch to correct for non-linear scattering. We validate the approach on a novel real-world sonar dataset collected across three distinct environments. Experimental results demonstrate that our approach outperforms feedforward and recurrent baselines, achieving a detection accuracy of 84.5% and an F1-score of 0.730. Furthermore, the model offers superior interpretability by learning physically plausible absorption parameters and dynamically balancing physical priors with data-driven corrections.
+            </div>
+            
+            <a href="https://doi.org/10.1109/CoDIT70676.2026.11631299" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1109/CoDIT70676.2026.11631299
+            </a>
+        </div>
+
+
+
+
+        <div class="pub-card">
+            <div class="pub-title">Layer-specific lipschitz modulation for fault-tolerant multimodal representation learning</div>
+            <div class="pub-authors">Diyar Altinses, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> Information Fusion</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                Modern multimodal systems deployed in industrial and safety-critical environments must remain reliable under partial sensor failures, signal degradation, or cross-modal inconsistencies. This work introduces a mathematically grounded framework for fault-tolerant multimodal representation learning that unifies self-supervised anomaly detection and error correction within a single architecture. Building upon a theoretical analysis of perturbation propagation, we derive Lipschitz- and Jacobian-based criteria that determine whether a neural operator amplifies or attenuates localized faults. Guided by this theory, we propose a two-stage self-supervised training scheme: pre-training a multimodal convolutional autoencoder on clean data to preserve localized anomaly signals in the latent space, and expanding it with a learnable compute block composed of dense layers for correction and contrastive objectives for anomaly identification. Furthermore, we introduce layer-specific Lipschitz modulation and gradient clipping as principled mechanisms to control sensitivity across detection and correction modules. Experimental results on multimodal fault datasets demonstrate that the proposed approach improves both anomaly detection accuracy and reconstruction under sensor corruption. Overall, this framework bridges the gap between analytical robustness guarantees and practical fault-tolerant multimodal learning.   
+            </div>
+            
+            <a href="https://doi.org/10.1016/j.inffus.2026.104618" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1016/j.inffus.2026.104618
+            </a>
+        </div>
+
+
+        
+
+
+        <div class="pub-card">
+            <div class="pub-title">Prior-informed initialization of function-parameterizing networks: A spectral approach for Bag-of-Functions architectures</div>
+            <div class="pub-authors">David Orlando Salazar Torres, Diyar Altinses, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> Neurocomputing</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                Neural network architectures designed for function parameterization, such as the Bag-of-Functions (BoF) framework, bridge the gap between the expressivity of deep learning and the interpretability of classical signal processing. However, these models are inherently sensitive to parameter initialization, as traditional data-agnostic schemes fail to capture the structural properties of the target signals, often leading to suboptimal convergence. In this work, we propose a prior-informed design strategy that leverages the intrinsic spectral and temporal structure of the data to guide both network initialization and architectural configuration for the Bag-of-Functions. A principled methodology is introduced that uses the Fast Fourier Transform to extract dominant seasonal priors, informing model depth and initial states, and a residual-based regression approach to parameterize trend components. Crucially, this structural alignment enables a substantial reduction in encoder dimensionality without compromising reconstruction fidelity. A supporting theoretical analysis provides guidance on trend estimation under finite-sample regimes. Extensive experiments demonstrate the effectiveness of this approach: the informed initialization reduces reconstruction error by 15.1% on complex real-world benchmarks. Furthermore, the trend-informed dimensionality reduction yields up to a 30% decrease in model parameters and computational complexity, accelerating inference and stabilizing optimization without altering the core training procedure.    
+            </div>
+            
+            <a href="https://doi.org/10.1016/j.neucom.2026.133948" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1016/j.neucom.2026.133948
+            </a>
+        </div>
+
+
+
+
+        <div class="pub-card">
+            <div class="pub-title">Lipschitz-Adaptive Alternating Minimization for Robust Multimodal Sensor Fusion</div>
+            <div class="pub-authors">Diyar Altinses, Andreas Schwung </div>
+            <div class="pub-venue"><i class="fa-solid fa-bookmark"></i> Knowledge-Based Systems</div>
+            
+            <div class="pub-abstract">
+                <strong>Abstract</strong>
+                 Effective fusion of heterogeneous multimodal data is critical for robust industrial applications, yet training these architectures remains challenging due to disparate data characteristics and complex optimization landscapes. Standard stochastic gradient descent often struggles with gradient scale mismatches between modalities (e.g., high-dimensional images vs. low-dimensional sensors) and the inherent non-convexity of the joint objective. This paper addresses these limitations by providing a rigorous theoretical analysis of multimodal autoencoders, establishing their property of marginal convexity. Leveraging this theoretical insight, we propose a novel Lipschitz-Adaptive Alternating Minimization framework. This strategy decomposes the training process into marginally convex sub-problems and introduces a dynamic learning rate adaptation mechanism based on the estimated Lipschitz constants of each modality. By regulating step sizes according to the sensitivity of the optimization landscape, our approach mitigates modality competition and escapes saddle points via gradient noise injection. Extensive evaluations on synthetic digital twin datasets and the real-world RoboMNIST dataset demonstrate that the proposed method significantly outperforms classical optimization techniques, yielding superior reconstruction accuracy, enhanced training stability, and better generalization in complex, trimodal environments.
+            </div>
+            
+            <a href="https://doi.org/10.1016/j.knosys.2026.116330" target="_blank" class="btn-doi">
+                <i class="fa-solid fa-link"></i> DOI: 10.1016/j.knosys.2026.116330
+            </a>
+        </div>
         
 
 
@@ -457,7 +563,7 @@
         <div class="pub-card">
             <div class="pub-title">Bridging the Gap Between Simulations and Reality: A CycleGAN-Based Approach for Drone Landing Systems</div>
             <div class="pub-authors">Diyar Altinses, David Orlando Salazar Torres, Andreas Schwung</div>
-            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> 2025 11th International Conference on Control, Decision and Information Technologies</div>
+            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IEEE 2025 - 11th International Conference on Control, Decision and Information Technologies</div>
             
             <div class="pub-abstract">
                 <strong>Abstract</strong>
@@ -473,7 +579,7 @@
         <div class="pub-card">
             <div class="pub-title">Enhancing Fault Tolerance in Multimodal Learning: A VAE-Based Approach with Probabilistic Fusion</div>
             <div class="pub-authors">Diyar Altinses, Andreas Schwung</div>
-            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> 2025 11th International Conference on Control, Decision and Information Technologies</div>
+            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IEEE 2025 - 11th International Conference on Control, Decision and Information Technologies</div>
             
             <div class="pub-abstract">
                 <strong>Abstract</strong>
@@ -489,7 +595,7 @@
         <div class="pub-card">
             <div class="pub-title">Data Imputation Techniques Using the Bag of Functions: Addressing Variable Input Lengths and Missing Data in Time Series Decomposition</div>
             <div class="pub-authors">David Orlando Salazar Torres, Diyar Altinses, Andreas Schwung</div>
-            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i>  2025 IEEE International Conference on Industrial Technology</div>
+            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IEEE 2025 - International Conference on Industrial Technology</div>
             
             <div class="pub-abstract">
                 <strong>Abstract</strong>
@@ -521,7 +627,7 @@
         <div class="pub-card">
             <div class="pub-title">Deep Multimodal Fusion with Corrupted Spatio-Temporal Data Using Fuzzy Regularization</div>
             <div class="pub-authors">Diyar Altinses, Andreas Schwung</div>
-            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IECON 2023- 49th Annual Conference of the IEEE Industrial Electronics Society</div>
+            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IECON 2023 - 49th Annual Conference of the IEEE Industrial Electronics Society</div>
             
             <div class="pub-abstract">
                 <strong>Abstract</strong>
@@ -536,7 +642,7 @@
         <div class="pub-card">
             <div class="pub-title">Multimodal Synthetic Dataset Balancing: a Framework for Realistic and Balanced Training Data Generation in Industrial Settings</div>
             <div class="pub-authors">Diyar Altinses, Andreas Schwung</div>
-            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IECON 2023- 49th Annual Conference of the IEEE Industrial Electronics Society</div>
+            <div class="pub-venue"><i class="fa-solid fa-location-dot"></i> IECON 2023 - 49th Annual Conference of the IEEE Industrial Electronics Society</div>
             
             <div class="pub-abstract">
                 <strong>Abstract</strong>
